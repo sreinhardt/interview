@@ -8,6 +8,12 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+#if defined(__x86_64)
+  #define PAD(sz) char pad[sz];
+#else
+  #define PAD(sz) do { } while(0);
+#endif
+
 #define PORTNO 12346
 #define BUFFER_SIZE 512
 
@@ -28,13 +34,14 @@ int checksec(FILE *f) {
 }
 
 void hekers(FILE *f) {
+  PAD(12);
   volatile int zeroWeekend;
   char buf[32];
 
   fprintf(f, "So you want to be an 31337 Hax0r?\n");
   fgets(buf, 40, f);
 
-  switch (strncmp("y3$\n", buf, 4)) {
+  switch (strncmp("y3$\n", buf, 3)) {
     case 0:
       fprintf(f, "First you must get power\n");
       break;
@@ -48,13 +55,14 @@ void hekers(FILE *f) {
 }
 
 void batmenss(FILE *f) {
+  PAD(12);
   volatile int batsignet;
   char buf[32];
 
   fprintf(f, "So you want to be the batman?\n");
   fgets(buf, 40, f);
 
-  switch (strncmp("YESSSSSSS\n", buf, 10)) {
+  switch (strncmp("YESSSSSSS\n", buf, 9)) {
     case 0:
       fprintf(f, "First you must get rich\n");
       break;
@@ -68,6 +76,7 @@ void batmenss(FILE *f) {
 }
 
 void pokemans(FILE *f) {
+  PAD(12);
   volatile int pikachy;
   char buf[32];
 
